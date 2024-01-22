@@ -39,7 +39,7 @@
         </div>
         <div id="right">
             <?php
-            $do=$_G['do']??'main';
+            $do=$_GET['do']??'main';
             $file="./front/{$do}.php";
             if(file_exists($file)){
                 include $file;

@@ -145,6 +145,9 @@ function to($url){
 
 $Bottom=new DB('bottom');
 $Mem=new DB('mem');
+$Admin=new DB('admin');
+$Type=new DB('type');
+$Goods=new DB('goods');
 
 
 

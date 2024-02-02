@@ -8,6 +8,7 @@
 
 	<title>┌精品電子商務網站」</title>
 	<link href="./css/css.css" rel="stylesheet" type="text/css">
+	<script src="./js/jquery-3.4.1.min.js"></script>
 	<script src="./js/js.js"></script>
 </head>
 
@@ -15,7 +16,7 @@
 	<iframe name="back" style="display:none;"></iframe>
 	<div id="main">
 		<div id="top">
-			<a href="?">
+			<a href="index.php">
 				<img src="./icon/0416.jpg">
 			</a>
 			<img src="./icon/0417.jpg">
@@ -28,7 +29,7 @@
 				<a href="?do=mem">會員管理</a>
 				<a href="?do=bot">頁尾版權管理</a>
 				<a href="?do=news">最新消息管理</a>
-				<a href="?do=logout" style="color:#f00;">登出</a>
+				<a href="./api/logout.php" style="color:#f00;">登出</a>
 			</div>
 		</div>
 		<div id="right">
@@ -45,7 +46,7 @@
 		<div id="bottom" style="line-height:70px; color:#FFF; background:url(icon/bot.png);" class="ct">
 		<?=$Bottom->find(1)['bottom'];?></div>
 	</div>
-	<script src="./js/jquery-3.4.1.min.js"></script>
+	
 </body>
 
 </html>

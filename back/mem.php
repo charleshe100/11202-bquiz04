@@ -1,27 +1,23 @@
-<div class="ct">
-    <button onclick="location.href='?do=add_admin'">新增管理員</button>
-</div>
+<h2 class="ct">會員管理</h2>
 <table class="all">
     <tr>
-        <th class="tt ct">帳號</th>
-        <th class="tt ct">密碼</th>
+        <th class="tt ct">姓名</th>
+        <th class="tt ct">會員帳號</th>
+        <th class="tt ct">註冊日期</th>
         <th class="tt ct">管理</th>
     </tr>
     <?php
-    $rows=$Admin->all();
+    $rows=$Mem->all();
     foreach($rows as $row){
     ?>
     <tr>
-        <td class="pp ct"><?=$row['acc'];?></td>
-        <td class="pp ct"><?=str_repeat("*",strlen($row['pw']));?></td>
-        <td class="pp ct">
-        <?php
-        if($row['acc']=='admin'){
-            echo "此帳號為最高權限";
-        }else{
+        <td class="pp ct"><?=$row['name'];?></td>        
+        <td class="pp ct"><?=$row['acc'];?></td>        
+        <td class="pp ct"><?=$row['regdate'];?></td>        
+        <td class="pp ct">        
+        <?php        
             echo "<button onclick='location.href=&#39;?do=edit_admin&id={$row['id']}&#39;'>修改</button>";
             echo "<button onclick='del(&#39;admin&#39;,{$row['id']})'>刪除</button>";
-        }
         ?>
         </td>
     </tr>

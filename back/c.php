@@ -1,6 +1,6 @@
 <h2 class="ct">商品分類</h2>
 <div class="ct">
-    新增大分類 <input type="text" name="big" id="big">
+    新增大分類 <input type="text" name="big" id="big"> 
               <button onclick="addType('big')">新增</button>
 </div>
 <div class="ct">
@@ -9,6 +9,7 @@
     <input type="text" name="mid" id="mid">
     <button onclick="addType('mid')">新增</button>
 </div>
+<!-- table.all>(tr.tt>td+td.ct>button*2)+(tr.tt.ct>td*2) -->
 <table class="all">
 <?php
 $bigs=$Type->all(['big_id'=>0]);
@@ -24,31 +25,29 @@ foreach($bigs as $big){
 <?php
     $mids=$Type->all(['big_id'=>$big['id']]);
     foreach($mids as $mid){
-?>
-    <tr class="pp ct">
-        <td><?=$mid['name'];?></td>
-        <td>
-        <button onclick="edit(this,<?=$mid['id'];?>)">修改</button>
-        <button onclick="del('type',<?=$mid['id'];?>)">刪除</button>
-        </td>
-    </tr>   
-<?php
+    ?>
+        <tr class="pp ct">
+            <td><?=$mid['name'];?></td>
+            <td>
+                <button onclick="edit(this,<?=$mid['id'];?>)">修改</button>
+                <button onclick="del('type',<?=$mid['id'];?>)">刪除</button>            
+            </td>
+        </tr>    
+    <?php
     }
 }
-?> 
+?>    
+
 </table>
 <script>
-// 0是大分類
 getTypes(0)
-// 因為上面用this，就是所在的dom，所以這裡用dom
-function edit(dom,id) {
-    let name=prompt("請輸入你要修改的分類名稱：",`${$(dom).parent().prev().text()}`)
+
+function edit(dom,id){
+    let name=prompt("請輸入你要修改的分類名稱:",`${$(dom).parent().prev().text()}`)
     if(name!=null){
         $.post("./api/save_type.php",{name,id},()=>{
-            // 可以從某個地方拿東西，就可以把它放回去，這是ajax的方法
             $(dom).parent().prev().text(name)
-            //用reload，畫面會重整，畫面會往上跑
-            // location.reload() 
+            //location.reload();
         })
     }
 }
@@ -59,24 +58,27 @@ function getTypes(big_id){
     })
 }
 
-function addType(type) {
+function addType(type){
     let name
-    let big_id
+    let big_id;
+
     switch(type){
         case 'big':
-            name=$("#big").val()
-            big_id=0
+            name=$("#big").val();
+            big_id=0;
         break;
         case 'mid':
-            name=$("#mid").val()
-            big_id=$("#bigs").val()
+            name=$("#mid").val();
+            big_id=$("#bigs").val();
         break;
     }
+
     $.post("./api/save_type.php",{name,big_id},()=>{
-        location.reload()
+        location.reload();
     })
 }
 </script>
+
 
 <h2 class="ct">商品管理</h2>
 <div class="ct">
@@ -92,15 +94,15 @@ function addType(type) {
     </tr>
     <?php
     $goods=$Goods->all();
-    foreach($goods as $good){    
+    foreach($goods as $good){
     ?>
     <tr class="pp">
         <td><?=$good['no'];?></td>
         <td><?=$good['name'];?></td>
         <td><?=$good['stock'];?></td>
         <td><?=($good['sh']==1)?"上架":"下架";?></td>
-        <td style="width: 120px;">
-            <button onclick="location.href='?do=edit_goods&id=<?=$good['id'];?>'">修改</button>
+        <td style="width:120px">
+            <button>修改</button>
             <button onclick="del('goods',<?=$good['id'];?>)">刪除</button>
             <button onclick="sh(1,<?=$good['id'];?>)">上架</button>
             <button onclick="sh(0,<?=$good['id'];?>)">下架</button>
@@ -111,6 +113,7 @@ function addType(type) {
     ?>
 </table>
 <script>
+
 function sh(sh,id){
     $.post("./api/sh.php",{id,sh},()=>{
         location.reload();

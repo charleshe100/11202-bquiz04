@@ -22,7 +22,8 @@ body
 	display:inline-block;
 	width:20%;
 	padding:2%;
-	min-height:550px;
+	height:550px;
+	overflow: auto;
 	vertical-align:top;
 	border:#000 1px solid;
 }
@@ -42,9 +43,10 @@ body
 #right
 {
 	display:inline-block;
-	width:65%;
+	width:71%;
 	padding:2%;
-	min-height:550px;
+	height:550px;
+	overflow: auto;
 	border:#000 1px solid;
 }
 #bottom

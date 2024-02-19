@@ -1,9 +1,7 @@
-<h2 class="ct">填寫資料</h2>
-<!-- table.all>tr*6>td.tt.ct+td.pp>input:text -->
 <?php
-$row=$Mem->find(['acc'=>$_SESSION['mem']]);
+$row=$Order->find($_GET['id']);
 ?>
-<form action="./api/order.php" method="post">
+<h2 class="ct">訂單編號<span style="color:red"><?=$row['no'];?></span>的詳細資料</h2>
 <table class="all">
     <tr>
         <td class="tt ct">登入帳號</td>
@@ -13,19 +11,19 @@ $row=$Mem->find(['acc'=>$_SESSION['mem']]);
     </tr>
     <tr>
         <td class="tt ct">姓名</td>
-        <td class="pp"><input type="text" name="name" value="<?=$row['name'];?>"></td>
+        <td class="pp"><?=$row['name'];?></td>
     </tr>
     <tr>
         <td class="tt ct">聯絡電話</td>
-        <td class="pp"><input type="text" name="tel" value="<?=$row['tel'];?>"></td>
+        <td class="pp"><?=$row['tel'];?></td>
     </tr>
     <tr>
         <td class="tt ct">聯絡住址</td>
-        <td class="pp"><input type="text" name="addr" value="<?=$row['addr'];?>"></td>
+        <td class="pp"><?=$row['addr'];?></td>
     </tr>
     <tr>
         <td class="tt ct">電子信箱</td>
-        <td class="pp"><input type="text" name="email" value="<?=$row['email'];?>"></td>
+        <td class="pp"><?=$row['email'];?></td>
     </tr>
 </table>
 <table class="all">
@@ -37,8 +35,8 @@ $row=$Mem->find(['acc'=>$_SESSION['mem']]);
         <td>小計</td>
     </tr>
 <?php
-$sum=0;
-foreach($_SESSION['cart'] as $id => $qt){
+$cart=unserialize($row['cart']);
+foreach($cart as $id => $qt){
     $goods=$Goods->find($id);
 ?>
     <tr class="pp ct">
@@ -49,14 +47,10 @@ foreach($_SESSION['cart'] as $id => $qt){
         <td><?=$goods['price'] * $qt;?></td>
     </tr>
 <?php
-    $sum+=$goods['price'] * $qt;
 }
 ?>
 </table>
-<div class="all ct tt">總價:<?=$sum;?>元</div>
+<div class="all ct tt">總價:<?=$row['total'];?>元</div>
 <div class="ct">
-    <input type="hidden" name="total" value="<?=$sum;?>">
-    <input type="submit" value="確定送出">
-    <input type="button" value="返回修改訂單" onclick="location.href='?do=buycart'">
+    <button onclick="location.href='?do=order'">返回</button>
 </div>
-</form>

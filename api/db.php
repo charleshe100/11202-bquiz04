@@ -148,6 +148,7 @@ $Mem=new DB('mem');
 $Admin=new DB('admin');
 $Type=new DB('type');
 $Goods=new DB('goods');
+$Order=new DB('orders');
 
 
 

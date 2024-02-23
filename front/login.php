@@ -14,14 +14,9 @@
     <tr>
         <td class="tt ct">驗證碼</td>
         <td class="pp">
-        <?php
-        $a=rand(10,99);
-        $b=rand(10,99);
-        $_SESSION['ans']=$a+$b;
-        // session是存在伺服器端的，客戶端看不到
-        echo $a . '+' . $b . '=';
-        ?>
-            <input type="text" name="ans" id="ans"></td>
+            <input type="text" name="ans" id="ans"><br>
+            <img src="" id="captcha"><button onclick="captcha()">重新產生</button>
+        </td>
     </tr>
 </table>
 <div class="ct">
@@ -29,6 +24,13 @@
 </div>
 
 <script>
+captcha();
+function captcha(){
+    $.get("./api/captcha.php",(img)=>{
+        console.log(img);
+        $("#captcha").attr("src",img)
+    })
+}    
 function login(table){
     $.get('./api/chk_ans.php',{ans:$("#ans").val()},(chk)=>{
         if(parseInt(chk)==0){
